@@ -136,6 +136,14 @@ section button {
 	margin: 0;
 }
 
+section .copy-tooltip {
+	margin: 0 0 0 10px;
+	display: inline-block;
+	color: white;
+	background-color: #6df033;
+	border-color: #6df033;
+}
+
 /*
 FOOTER
 */
