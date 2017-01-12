@@ -1,0 +1,177 @@
+/*
+GLOBAL
+*/
+
+html, body {}
+
+body {
+	background-color: #fafafa;
+}
+
+img {
+	max-width: 100%;
+}
+
+h1 {
+	padding: 0 20px;
+	margin: 0;
+	display: inline-block;
+	font-size: 4rem;
+	text-transform: uppercase;
+}
+
+h4 {
+	margin-bottom: 40px;
+	color: #ff645d;
+}
+
+/*
+HEADER
+*/
+
+header {
+	position: relative;
+	background-color: white;
+	z-index: 2;
+}
+
+header .container {
+	padding: 100px 0;
+	text-align: center;
+}
+
+/*
+MAIN SECTION
+*/
+
+section {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+	background-color: white;
+	z-index: 1;
+}
+
+section .container {
+	position: relative;
+	background-color: white;
+}
+
+section .container .row {
+	margin-bottom: 100px;
+}
+
+section .email-body {
+	padding: 20px;
+	margin-bottom: 40px;
+	border: 10px solid #fafafa;
+	font-size: 90%;
+	font-family: 'Arial', sans-serif;
+}
+
+section img {
+	width: 50%;
+	height: auto;
+}
+
+section .email-signature p {
+	margin: 0;
+}
+
+section a {
+	text-decoration: none;
+	color: #ff645d;
+}
+
+section a:hover {
+	text-decoration: underline;
+	color: #ff645d;
+}
+
+section .separator {
+	color: lightgray;
+	margin: 0 3px;
+}
+
+section p.your-name {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+section p.your-email-and-phone {
+	margin-bottom: 2rem;
+}
+
+section p.office-address {
+	margin-bottom: 2rem;
+}
+
+section ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+section ul li {
+	margin: 0;
+}
+
+section ul li::after {
+	content: '|';
+	margin: 0 4px;
+	color: lightgray;
+}
+
+section ul li:last-child::after {
+	content: none;
+	margin: 0;
+}
+
+section ul li a {
+	font-size: 90%;
+}
+
+section button {
+	margin: 0;
+}
+
+/*
+FOOTER
+*/
+
+footer {
+	background-color: #fafafa;
+}
+
+footer .container {
+	padding: 60px 0;
+	text-align: center;
+}
+
+footer .container p {
+	color: gray;
+	margin: 0;
+}
+
+/*
+CLIPBOARD INIT
+*/
+
+.clipboard-init {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+}
+
+/*
+RESPONSIVE
+*/
+@media (max-width: 920px) {
+	.one-half.column {
+		width: 100%;
+		margin-left: 0px;
+	}
+}
