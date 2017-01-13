@@ -68,6 +68,10 @@ section .email-body {
 	font-family: 'Arial', sans-serif;
 }
 
+section .email-content {
+	color: lightgray;
+}
+
 section img {
 	width: 50%;
 	height: auto;
