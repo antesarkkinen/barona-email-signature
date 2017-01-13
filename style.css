@@ -93,8 +93,8 @@ section .separator {
 }
 
 section p.your-name {
-	text-transform: uppercase;
 	font-weight: bold;
+	text-transform: uppercase;
 }
 
 section p.your-email-and-phone {
@@ -172,13 +172,9 @@ CLIPBOARD INIT
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: -1;
-}
-
-.clipboard-init textarea {
-	resize: none;
-	margin: 0;
-	padding: 0;
-	min-height: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
 }
 
 /*
