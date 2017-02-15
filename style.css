@@ -148,6 +148,11 @@ section .copy-tooltip {
 	border-color: #6df033;
 }
 
+section .notification {
+	color: #ff645d;
+	font-style: italic;
+}
+
 /*
 FOOTER
 */
