@@ -1,12 +1,14 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="App">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
     <script src="script.js"></script>
+    <script src="app.js"></script>
     <link rel="stylesheet" href="normalize.css" media="all" />
     <link rel="stylesheet" href="skeleton.css" media="all" />
     <link rel="stylesheet" href="style.css" media="all" />
@@ -21,7 +23,7 @@
         </div>
       </div>
     </header>
-    <section class="content">
+    <section class="content" ng-controller="emailCtrl">
       <div class="container">
         <div class="row">
           <div class="input one-half column">
@@ -33,10 +35,26 @@
             <input id="title" class="u-full-width" type="text" ng-model="yourTitle" placeholder="Senior Developer">
             <label for="branch">Branch/company:</label>
             <input id="branch" class="u-full-width" type="text" ng-model="yourBranch" placeholder="Barona Technologies Oy">
-            <!-- <input class="u-full-width" type="text" ng-model="yourEmail" placeholder="ante.sarkkinen@barona.fi"> -->
             <label for="phone">Phone:</label>
-            <input id="phone" class="u-full-width" type="tel" ng-model="yourPhone" placeholder="+358501234567">
+            <input id="phone" class="u-full-width" type="tel" ng-model="yourPhone" placeholder="+358505061414">
+            <label for="address">Address & country:</label>
+            <input id="address" class="u-full-width" type="text" ng-model="data.yourAddress">
+            <!-- <input class="u-full-width" type="text" ng-model="yourEmail" placeholder="ante.sarkkinen@barona.fi"> -->
             <!-- <input class="button-primary" value="Reset fields" type="reset"> -->
+            <input type="checkbox" ng-model="checked"> Custom footer links (other than Finland)
+            <fieldset ng-if="checked" class="animate-if">
+              <label for="somewebsite">Website:</label>
+              <input id="somewebsite" class="u-full-width" type="text" ng-model="data.someWebsite" placeholder="BARONA.FI">
+              <input id="somewebsiteurl" class="u-full-width" type="text" ng-model="data.someWebsiteUrl" placeholder="https://www.barona.fi">
+              <label for="somelinkedin">LinkedIn URL:</label>
+              <input id="somelinkedin" class="u-full-width" type="text" ng-model="data.someLinkedIn" placeholder="https://www.linkedin.com/company/barona-group-oy">
+              <label for="sometwitter">Twitter URL:</label>
+              <input id="sometwitter" class="u-full-width" type="text" ng-model="data.someTwitter" placeholder="https://www.twitter.com/baronagroup">
+              <label for="somefacebook">Facebook URL:</label>
+              <input id="somefacebook" class="u-full-width" type="text" ng-model="data.someFacebook" placeholder="https://www.facebook.com/BaronaCareers">
+              <label for="someinstagram">Instagram URL:</label>
+              <input id="someinstagram" class="u-full-width" type="text" ng-model="data.someInstagram" placeholder="https://www.instagram.com/baronacareers">
+            </fieldset>
           </form>
           </div>
           <div class="entry one-half column">
@@ -55,13 +73,20 @@
                 </p>
               </div>
               <div class="email-signature">
-                <p class="your-name">{{yourName}}</p>
-                <p class="your-title">{{yourTitle}} - {{yourBranch}}</p>
+                <p class="your-name">{{yourName ? yourName : 'BENJAMIN BARONA'}}</p>
+                <p class="your-title">{{yourTitle ? yourTitle : 'Senior Developer'}} - {{yourBranch ? yourBranch : 'Barona Technologies Oy'}}</p>
                 <!-- <p class="your-email-and-phone"><a href="">ante.sarkkinen@barona.fi</a> {{yourEmail}}<span class="separator">|</span><a href="">+358505061414</a> {{yourPhone}}</p> -->
-                <p class="your-email-and-phone">Tel: <a href="tel: {{yourPhone}}">{{yourPhone}}</a></p>
+                <p class="your-email-and-phone">Tel: <a href="tel: {{yourPhone}}">{{yourPhone ? yourPhone : '+358505061414'}}</a></p>
                 <img src="https://www.barona.fi/wp-content/uploads/logo/barona-email-signature-logo.gif" alt="Barona Oy">
-                <p class="office-address">T&ouml;&ouml;l&ouml;nlahdenkatu 3B, 00100 Helsinki</p>
-                <ul>
+                <p class="office-address">{{data.yourAddress}}</p>
+                <ul ng-if="checked">
+                  <li ng-if="data.someWebsiteUrl"><a href="{{data.someWebsiteUrl}}">{{data.someWebsite}}</a></li>
+                  <li ng-if="data.someLinkedIn"><a href="{{data.someLinkedIn}}">LINKEDIN</a></li>
+                  <li ng-if="data.someTwitter"><a href="{{data.someTwitter}}">TWITTER</a></li>
+                  <li ng-if="data.someFacebook"><a href="{{data.someFacebook}}">FACEBOOK</a></li>
+                  <li ng-if="data.someInstagram"><a href="{{data.someInstagram}}">INSTAGRAM</a></li>
+                </ul>
+                <ul ng-if="!checked">
                   <li><a href="https://www.barona.fi">BARONA.FI</a></li>
                   <li><a href="https://www.linkedin.com/company/barona-group-oy">LINKEDIN</a></li>
                   <li><a href="https://www.twitter.com/baronagroup">TWITTER</a></li>
@@ -77,7 +102,34 @@
           </div>
         </div>
       <div class="clipboard-init">
-        <div id="clipboard-content"><table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0; width: 400px;"><tr><td style="color: #c0c0c0; font-size: 13px; font-family: Helvetica, sans-serif;">---</td></tr><tr><td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Helvetica, sans-serif; text-transform: uppercase;"><strong>{{yourName}}</strong></td></tr><tr><td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{yourTitle}} - {{yourBranch}}</td></tr><tr><td style="color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">Tel: <a href="tel: {{yourPhone}}" style="color: #ff645d; text-decoration: none;">{{yourPhone}}</a></td></tr><tr><td style="padding-top: 15px;"><img nosend="1" height="48" width= "220" border="0" src="https://www.barona.fi/wp-content/uploads/logo/barona-logo_220x48.gif" alt="Barona Oy"></td></tr><tr><td style="padding-top: 5px; padding-bottom: 15px; color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">T&ouml;&ouml;l&ouml;nlahdenkatu 3B, 00100 Helsinki</td></tr><tr><td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a href="https://www.barona.fi" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">BARONA.FI</span></a> <span style="color: #d3d3d3;">|</span> <a href="https://www.linkedin.com/company/barona-group-oy" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a> <span style="color: #d3d3d3;">|</span> <a href="https://www.twitter.com/baronagroup" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a> <span style="color: #d3d3d3;">|</span> <a href="https://www.facebook.com/BaronaCareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a> <span style="color: #d3d3d3;">|</span> <a href="https://www.instagram.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td></tr></table></div>
+        <div id="clipboard-content">
+        <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+        <tr>
+        <td style="color: #c0c0c0; font-size: 13px; font-family: Helvetica, sans-serif;">---</td>
+        </tr>
+        <tr>
+        <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Helvetica, sans-serif; text-transform: uppercase;"><strong>{{yourName}}</strong></td>
+        </tr>
+        <tr>
+        <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{yourTitle}}&nbsp;-&nbsp;{{yourBranch}}</td>
+        </tr>
+        <tr>
+        <td style="color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">Tel:&nbsp;<a href="tel: {{yourPhone}}" style="color: #ff645d; text-decoration: none;">{{yourPhone}}</a></td>
+        </tr>
+        <tr>
+        <td style="padding-top: 15px; padding-bottom: 5px;"><img nosend="1" height="48" width= "220" border="0" src="https://www.barona.fi/wp-content/uploads/logo/barona-logo_220x48.gif" alt="Barona Oy"></td>
+        </tr>
+        <tr>
+        <td style="padding-bottom: 15px; color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{data.yourAddress}}</td>
+        </tr>
+        <tr ng-if="!checked">
+        <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a href="https://www.barona.fi" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">BARONA.FI</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.linkedin.com/company/barona-group-oy" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.twitter.com/baronagroup" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.facebook.com/BaronaCareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.instagram.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
+        </tr>
+        <tr ng-if="checked">
+        <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a ng-if="data.someWebsiteUrl" href="{{data.someWebsiteUrl}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">{{data.someWebsite}}</span></a>&nbsp;<span ng-if="data.someLinkedIn" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someLinkedIn" href="https://www.linkedin.com/company/barona-group-oy" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span ng-if="data.someTwitter" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someTwitter" href="https://www.twitter.com/baronagroup" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span ng-if="data.someFacebook" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someFacebook" href="https://www.facebook.com/BaronaCareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span ng-if="data.someInstagram" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someInstagram" href="https://www.instagram.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
+        </tr>
+        </table>
+        </div>
       </div>
       </div>
     </section>
