@@ -45,15 +45,16 @@
             <fieldset ng-if="checked" class="animate-if">
               <label for="somewebsite">Website:</label>
               <input id="somewebsite" class="u-full-width" type="text" ng-model="data.someWebsite" placeholder="BARONA.FI">
-              <input id="somewebsiteurl" class="u-full-width" type="text" ng-model="data.someWebsiteUrl" placeholder="https://www.barona.fi">
+              <input id="somewebsiteurl" class="u-full-width" type="text" ng-model="data.someWebsiteUrl" placeholder="http://www.barona.fi">
               <label for="somelinkedin">LinkedIn URL:</label>
               <input id="somelinkedin" class="u-full-width" type="text" ng-model="data.someLinkedIn" placeholder="https://www.linkedin.com/company/barona-group-oy">
               <label for="sometwitter">Twitter URL:</label>
-              <input id="sometwitter" class="u-full-width" type="text" ng-model="data.someTwitter" placeholder="https://www.twitter.com/baronagroup">
+              <input id="sometwitter" class="u-full-width" type="text" ng-model="data.someTwitter" placeholder="https://www.twitter.com/baronacareers">
               <label for="somefacebook">Facebook URL:</label>
               <input id="somefacebook" class="u-full-width" type="text" ng-model="data.someFacebook" placeholder="https://www.facebook.com/BaronaCareers">
               <label for="someinstagram">Instagram URL:</label>
               <input id="someinstagram" class="u-full-width" type="text" ng-model="data.someInstagram" placeholder="https://www.instagram.com/baronacareers">
+              <p class="notification">Please double check that you are using the full URL's including the HTTP or HTTPS part etc.</p>
             </fieldset>
           </form>
           </div>
@@ -89,7 +90,7 @@
                 <ul ng-if="!checked">
                   <li><a href="https://www.barona.fi">BARONA.FI</a></li>
                   <li><a href="https://www.linkedin.com/company/barona-group-oy">LINKEDIN</a></li>
-                  <li><a href="https://www.twitter.com/baronagroup">TWITTER</a></li>
+                  <li><a href="https://www.twitter.com/baronacareers">TWITTER</a></li>
                   <li><a href="https://www.facebook.com/BaronaCareers">FACEBOOK</a></li>
                   <li><a href="https://www.instagram.com/baronacareers">INSTAGRAM</a></li>
                 </ul>
