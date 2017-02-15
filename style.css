@@ -181,7 +181,7 @@ CLIPBOARD INIT
 	overflow: hidden;
 }
 
-#clipboard-content th, #clipboard-content td {
+.clipboard-init #clipboard-content th, .clipboard-init #clipboard-content td {
 	border: 0;
 	padding: 0;
 }
