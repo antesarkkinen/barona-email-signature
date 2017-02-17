@@ -1,8 +1,7 @@
-var app = angular.module('App', []);
+var app = angular.module('App', ['ngAnimate']);
 
 app.controller('emailCtrl', function($scope) {
 	$scope.data = {
-		yourAddress: 'Töölönlahdenkatu 3B, 00100 Helsinki, Finland',
 		someWebsite: '',
 		someWebsiteUrl: '',
 		someLinkedIn: '',
