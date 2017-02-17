@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
     <script src="script.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="normalize.css" media="all" />
     <link rel="stylesheet" href="skeleton.css" media="all" />
     <link rel="stylesheet" href="style.css" media="all" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <title>Barona email signature generator</title>
   </head>
   <body>
     <header>
@@ -38,7 +41,7 @@
             <label for="phone">Phone:</label>
             <input id="phone" class="u-full-width" type="tel" ng-model="yourPhone" placeholder="+358505061414">
             <label for="address">Address & country:</label>
-            <input id="address" class="u-full-width" type="text" ng-model="data.yourAddress">
+            <input id="address" class="u-full-width" type="text" ng-model="yourAddress" placeholder="Töölönlahdenkatu 3B, 00100 Helsinki, Finland">
             <!-- <input class="u-full-width" type="text" ng-model="yourEmail" placeholder="ante.sarkkinen@barona.fi"> -->
             <!-- <input class="button-primary" value="Reset fields" type="reset"> -->
             <input type="checkbox" ng-model="checked"> Custom footer links (other than Finland)
@@ -61,7 +64,7 @@
           <div class="entry one-half column">
             <h4>2. Email preview</h4>
             <div class="email-body">
-            <div class="email-content">
+              <div class="email-content">
                 <h5>My awesome email title</h5>
                 <p>
                 Morbi ipsum magna, placerat et lacus nec, luctus vehicula ex. Donec sit amet nisi semper, pharetra diam ut, fringilla odio.
@@ -73,65 +76,44 @@
                 Proin ut orci dictum, maximus mauris convallis, pulvinar sapien. Praesent risus risus, molestie condimentum vestibulum ac, suscipit et leo. Nunc ut urna at ipsum viverra mattis. Praesent tincidunt ante a condimentum faucibus.
                 </p>
               </div>
-              <div class="email-signature">
-                <p class="your-name">{{yourName ? yourName : 'BENJAMIN BARONA'}}</p>
-                <p class="your-title">{{yourTitle ? yourTitle : 'Senior Developer'}} - {{yourBranch ? yourBranch : 'Barona Technologies Oy'}}</p>
-                <!-- <p class="your-email-and-phone"><a href="">ante.sarkkinen@barona.fi</a> {{yourEmail}}<span class="separator">|</span><a href="">+358505061414</a> {{yourPhone}}</p> -->
-                <p class="your-email-and-phone">Tel: <a href="tel: {{yourPhone}}">{{yourPhone ? yourPhone : '+358505061414'}}</a></p>
-                <img src="https://www.barona.fi/wp-content/uploads/logo/barona-email-signature-logo.gif" alt="Barona Oy">
-                <p class="office-address">{{data.yourAddress}}</p>
-                <ul ng-if="checked">
-                  <li ng-if="data.someWebsiteUrl"><a href="{{data.someWebsiteUrl}}">{{data.someWebsite}}</a></li>
-                  <li ng-if="data.someLinkedIn"><a href="{{data.someLinkedIn}}">LINKEDIN</a></li>
-                  <li ng-if="data.someTwitter"><a href="{{data.someTwitter}}">TWITTER</a></li>
-                  <li ng-if="data.someFacebook"><a href="{{data.someFacebook}}">FACEBOOK</a></li>
-                  <li ng-if="data.someInstagram"><a href="{{data.someInstagram}}">INSTAGRAM</a></li>
-                </ul>
-                <ul ng-if="!checked">
-                  <li><a href="https://www.barona.fi">BARONA.FI</a></li>
-                  <li><a href="https://www.linkedin.com/company/barona-group-oy">LINKEDIN</a></li>
-                  <li><a href="https://www.twitter.com/baronacareers">TWITTER</a></li>
-                  <li><a href="https://www.facebook.com/BaronaCareers">FACEBOOK</a></li>
-                  <li><a href="https://www.instagram.com/baronacareers">INSTAGRAM</a></li>
-                </ul>
+              <div class="clipboard-init">
+                <div id="clipboard-content">
+                <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
+                <tr>
+                <td style="color: #c0c0c0; font-size: 13px; font-family: Helvetica, sans-serif;">---</td>
+                </tr>
+                <tr>
+                <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Helvetica, sans-serif; text-transform: uppercase;"><strong>{{yourName}}</strong></td>
+                </tr>
+                <tr>
+                <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{yourTitle}}&nbsp;-&nbsp;{{yourBranch}}</td>
+                </tr>
+                <tr>
+                <td style="color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">Tel:&nbsp;<a href="tel: {{yourPhone}}" style="color: #ff645d; text-decoration: none;">{{yourPhone}}</a></td>
+                </tr>
+                <tr>
+                <td style="padding-top: 15px; padding-bottom: 5px;"><img nosend="1" height="44" width= "200" border="0" src="https://www.barona.fi/wp-content/uploads/logo/barona-logo_220x48.gif" alt="Barona Oy" style="width: 200px; height: 44px;"></td>
+                </tr>
+                <tr>
+                <td style="padding-bottom: 15px; color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{yourAddress}}</td>
+                </tr>
+                <tr ng-if="!checked">
+                <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a href="https://www.barona.fi" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">BARONA.FI</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.linkedin.com/company/barona-group-oy" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.twitter.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.facebook.com/BaronaCareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.instagram.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
+                </tr>
+                <tr ng-if="checked">
+                <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a ng-if="data.someWebsiteUrl" href="{{data.someWebsiteUrl}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">{{data.someWebsite}}</span></a>&nbsp;<span ng-if="data.someLinkedIn" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someLinkedIn" href="{{data.someLinkedIn}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span ng-if="data.someTwitter" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someTwitter" href="{{data.someTwitter}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span ng-if="data.someFacebook" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someFacebook" href="{{data.someFacebook}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span ng-if="data.someInstagram" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someInstagram" href="{{data.someInstagram}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
+                </tr>
+                </table>
+                </div>
               </div>
             </div>
             <div class="email-footer">
               <button class="button-primary btn" data-clipboard-demo data-clipboard-target="#clipboard-content">Copy signature to clipboard</button>
               <div class="copy-tooltip button" style="display: none;">Copied</div>
             </div>
+            <p style="font-size: 12px; font-style: italic; color: lightgray;">* If the copy -button does not work. Select the signature and copy it manually.</p>
           </div>
         </div>
-      <div class="clipboard-init">
-        <div id="clipboard-content">
-        <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;">
-        <tr>
-        <td style="color: #c0c0c0; font-size: 13px; font-family: Helvetica, sans-serif;">---</td>
-        </tr>
-        <tr>
-        <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Helvetica, sans-serif; text-transform: uppercase;"><strong>{{yourName}}</strong></td>
-        </tr>
-        <tr>
-        <td style="color: #222222; padding-bottom: 3px; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{yourTitle}}&nbsp;-&nbsp;{{yourBranch}}</td>
-        </tr>
-        <tr>
-        <td style="color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">Tel:&nbsp;<a href="tel: {{yourPhone}}" style="color: #ff645d; text-decoration: none;">{{yourPhone}}</a></td>
-        </tr>
-        <tr>
-        <td style="padding-top: 15px; padding-bottom: 5px;"><img nosend="1" height="48" width= "220" border="0" src="https://www.barona.fi/wp-content/uploads/logo/barona-logo_220x48.gif" alt="Barona Oy"></td>
-        </tr>
-        <tr>
-        <td style="padding-bottom: 15px; color: #222222; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{data.yourAddress}}</td>
-        </tr>
-        <tr ng-if="!checked">
-        <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a href="https://www.barona.fi" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">BARONA.FI</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.linkedin.com/company/barona-group-oy" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.twitter.com/baronagroup" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.facebook.com/BaronaCareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span style="color: #d3d3d3;">|</span>&nbsp;<a href="https://www.instagram.com/baronacareers" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
-        </tr>
-        <tr ng-if="checked">
-        <td style="color: #ff645d; font-size: 11px; font-family: Arial, Helvetica, sans-serif;"><a ng-if="data.someWebsiteUrl" href="{{data.someWebsiteUrl}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">{{data.someWebsite}}</span></a>&nbsp;<span ng-if="data.someLinkedIn" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someLinkedIn" href="{{data.someLinkedIn}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">LINKEDIN</span></a>&nbsp;<span ng-if="data.someTwitter" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someTwitter" href="{{data.someTwitter}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">TWITTER</span></a>&nbsp;<span ng-if="data.someFacebook" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someFacebook" href="{{data.someFacebook}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">FACEBOOK</span></a>&nbsp;<span ng-if="data.someInstagram" style="color: #d3d3d3;">|</span>&nbsp;<a ng-if="data.someInstagram" href="{{data.someInstagram}}" style="color: #ff645d; text-decoration: none;"><span style="color: #ff645d; text-decoration: none;">INSTAGRAM</span></a></td>
-        </tr>
-        </table>
-        </div>
-      </div>
       </div>
     </section>
     <footer>

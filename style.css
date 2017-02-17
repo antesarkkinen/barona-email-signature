@@ -153,6 +153,10 @@ section .notification {
 	font-style: italic;
 }
 
+section .email-footer {
+	margin-bottom: 20px;
+}
+
 /*
 FOOTER
 */
@@ -174,17 +178,6 @@ footer .container p {
 /*
 CLIPBOARD INIT
 */
-
-.clipboard-init {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: -1;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-}
 
 .clipboard-init #clipboard-content th, .clipboard-init #clipboard-content td {
 	border: 0;
